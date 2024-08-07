@@ -21,7 +21,7 @@ export default function Signup() {
       const resp = await axios.post("/api/signup", signupData);
       if (resp.data) {
         toast.success("Signup success");
-        window.location.href = "/login";
+        window.location.href = "/checkemail";
       }
     } catch (e) {
       console.log("Error in signup", e);

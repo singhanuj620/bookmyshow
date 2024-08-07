@@ -38,8 +38,9 @@ export interface UserInterface {
   fullName: string;
   email: string;
   password: string;
-  isVerfiied: boolean;
+  isVerified: boolean;
   verificationCode: string;
   forgotPasswordCode: string;
   _id: string;
+  _doc: any;
 }

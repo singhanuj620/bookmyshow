@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from "next/server";
-import axios from "axios";
 import bcrypt from "bcrypt";
 import { connect } from "@/db/connect";
 import User from "@/models/userModel";

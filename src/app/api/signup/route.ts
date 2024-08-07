@@ -1,8 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
-import axios from "axios";
+import { v4 as uuidv4 } from "uuid";
 import { connect } from "@/db/connect";
 import User from "@/models/userModel";
 import bcrypt from "bcrypt";
+import { UserInterface } from "@/interface/interface";
+import SendVerificationEmail from "@/utils/sendEmail";
 connect();
 export async function POST(request: NextRequest) {
   try {
@@ -12,11 +14,28 @@ export async function POST(request: NextRequest) {
       password,
       parseInt(process.env.NEXT_PUBLIC_SALT!)
     );
-    const user = await User.create({
+    const user: UserInterface = await User.create({
       fullName,
       email,
       password: hashedPassword,
+      verificationCode: uuidv4(),
     });
+
+    const referer = request.headers.get("referer");
+
+    const verifyEmailHTML = `
+      <h1>Welcome to BookMyShow Clone</h1>
+      <h3>Made by Anuj Singh. More info : <a href="https://anujsingh.net">https://anujsingh.net</a></h3>
+      <p>Click <a href="${
+        referer ? referer : "http://localhost:3000"
+      }/verifyemail/${user.verificationCode}">here</a> to verify your email</p>
+      `;
+      
+    await SendVerificationEmail(
+      user.email,
+      "Verify your email",
+      verifyEmailHTML
+    );
 
     if (user) {
       console.log("User created successfully");
