@@ -5,7 +5,11 @@ import Link from "next/link";
 export default function Navbar() {
   return (
     <div className="flex flex-row justify-between items-center h-16 text-lg navbar-shadow">
-      <div className="ml-6 cursor-pointer text-3xl">BookMyShow</div>
+      <div className="ml-6 cursor-pointer text-3xl">
+        <a href="/" className="text-inherit no-underline hover:text-inherit">
+          BookMyShow
+        </a>
+      </div>
       <div className="flex flex-row">
         <div className="mr-4 cursor-pointer hover:font-bold">Movie</div>
         <div className="mr-4 cursor-pointer hover:font-bold">TV Shows</div>
